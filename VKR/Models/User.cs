@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace VKR.Models;
 
 public partial class User
 {
+    [Key]
     public int Userid { get; set; }
 
     public string Fullname { get; set; } = null!;
