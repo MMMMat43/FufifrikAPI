@@ -1,16 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Scripting;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Crypto.Generators;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using VKR.DTO;
 using VKR.Models;
 
-namespace YourNamespace.Controllers
+namespace VKR.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -23,61 +22,82 @@ namespace YourNamespace.Controllers
             _configuration = configuration;
         }
 
-        // Регистрация пользователя
+        // Регистрация
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] User user)
+        public IActionResult Register([FromBody] User user)
         {
-            // Проверка: существует ли пользователь с таким логином или email
-            if (await _context.Users.AnyAsync(u => u.Fullname == user.Fullname || u.Email == user.Email))
+            // Проверка на наличие данных
+            if (user == null || string.IsNullOrWhiteSpace(user.Fullname) ||
+                string.IsNullOrWhiteSpace(user.Passwordhash) ||
+                string.IsNullOrWhiteSpace(user.Email))
             {
-                return BadRequest(new { message = "Пользователь с таким логином или email уже существует." });
+                return BadRequest("Все обязательные поля должны быть заполнены.");
             }
 
-            // Хэшируем пароль
+            // Проверяем, существует ли пользователь с таким номером телефона или email
+            if (_context.Users.Any(u => u.Phonenumber == user.Phonenumber || u.Email == user.Email))
+            {
+                return Conflict("Пользователь с таким номером телефона или email уже существует.");
+            }
+            
+            // Хешируем пароль
             user.Passwordhash = BCrypt.Net.BCrypt.HashPassword(user.Passwordhash);
 
-            // Сохраняем пользователя
+            // Добавляем пользователя в базу данных
             _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
-            return Ok(new { message = "Пользователь успешно зарегистрирован." });
+            return Ok("Пользователь успешно зарегистрирован.");
         }
 
-        // Авторизация пользователя
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] User loginData)
+        public IActionResult Login([FromBody] LoginRequest loginRequest)
         {
-            // Ищем пользователя по логину
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginData.Username);
-            if (user == null || !BCrypt.Net.BCrypt.Verify(loginData.Password, user.Password))
+            // Проверка на наличие пользователя по номеру телефона
+            var user = _context.Users.FirstOrDefault(u => u.Phonenumber == loginRequest.Phonenumber);
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(loginRequest.Passwordhash, user.Passwordhash))
             {
-                return Unauthorized(new { message = "Неверный логин или пароль." });
+                return Unauthorized("Неверный номер телефона или пароль.");
             }
 
-            // Генерируем JWT токен
-            var claims = new[]
+            // Генерация токена
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("UserId", user.Id.ToString())
+                Subject = new ClaimsIdentity(new[]
+                {
+            new Claim(ClaimTypes.Name, user.Fullname),
+            new Claim(ClaimTypes.MobilePhone, user.Phonenumber)
+        }),
+                Expires = DateTime.UtcNow.AddMinutes(int.Parse(_configuration["Jwt:ExpireMinutes"])),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JwtIssuer"],
-                audience: _configuration["JwtAudience"],
-                claims: claims,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: creds
-            );
-
+            // Вернуть токен и URL для редиректа
             return Ok(new
             {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = DateTime.Now.AddHours(1)
+                Token = tokenHandler.WriteToken(token),
+                Expiration = token.ValidTo,
+                RedirectUrl = Url.Page("/Menu") // Добавляем URL для редиректа
             });
         }
+
+
+
+
+
+        [Authorize]
+        [HttpGet("protected-resource")]
+        public IActionResult GetProtectedData()
+        {
+            // Этот метод доступен только аутентифицированным пользователям
+            return Ok(new { message = "Это защищённый ресурс!" });
+        }
+
     }
 }

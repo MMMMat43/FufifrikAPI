@@ -1,0 +1,44 @@
+﻿@page
+@model VKR.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Регистрация</h2>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="Fullname" class="form-label">ФИО</label>
+                            <input type="text" class="form-control" id="Fullname" name="Fullname" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Phonenumber" class="form-label">Номер телефона</label>
+                            <input type="text" class="form-control" id="Phonenumber" name="Phonenumber" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="Email" name="Email" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Passwordhash" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="Passwordhash" name="Passwordhash" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Address" class="form-label">Адрес</label>
+                            <input type="text" class="form-control" id="Address" name="Address" />
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    Уже зарегистрированы?
+                    <a href="/Login" class="text-primary">Войти</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

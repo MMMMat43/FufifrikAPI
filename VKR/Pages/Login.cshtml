@@ -1,0 +1,32 @@
+﻿@page
+@model VKR.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Авторизация</h2>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="Phonenumber" class="form-label">Номер телефона</label>
+                            <input type="text" class="form-control" id="Phonenumber" name="Phonenumber" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Passwordhash" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="Passwordhash" name="Passwordhash" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Войти</button>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    Нет аккаунта?
+                    <a href="/Register" class="text-primary">Зарегистрироваться</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

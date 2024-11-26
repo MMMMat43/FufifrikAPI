@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "G:\\Work\\kursovoi\\VKR\\VKR\\wwwroot\\images\\fone.jpg",
+      "PackagePath": "staticwebassets\\images\\fone.jpg"
+    },
+    {
       "Id": "G:\\Work\\kursovoi\\VKR\\VKR\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

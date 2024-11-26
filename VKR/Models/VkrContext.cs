@@ -17,8 +17,6 @@ public partial class VkrContext : DbContext
 
     public virtual DbSet<Deliveryinfo> Deliveryinfos { get; set; }
 
-    public virtual DbSet<Dietarycategory> Dietarycategories { get; set; }
-
     public virtual DbSet<Dish> Dishes { get; set; }
 
     public virtual DbSet<Dishcategory> Dishcategories { get; set; }
@@ -49,6 +47,7 @@ public partial class VkrContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema("restaurant");
         modelBuilder.Entity<Deliveryinfo>(entity =>
         {
             entity.HasKey(e => e.Deliveryinfoid).HasName("deliveryinfo_pkey");
@@ -74,51 +73,22 @@ public partial class VkrContext : DbContext
                 .HasConstraintName("fk_deliveryinfo_order");
         });
 
-        modelBuilder.Entity<Dietarycategory>(entity =>
-        {
-            entity.HasKey(e => e.Dietarycategoryid).HasName("dietarycategories_pkey");
-
-            entity.ToTable("dietarycategories", "restaurant");
-
-            entity.Property(e => e.Dietarycategoryid).HasColumnName("dietarycategoryid");
-            entity.Property(e => e.Categoryname)
-                .HasMaxLength(255)
-                .HasColumnName("categoryname");
-        });
-
         modelBuilder.Entity<Dish>(entity =>
         {
-            entity.HasKey(e => e.Dishid).HasName("dishes_pkey");
-
             entity.ToTable("dishes", "restaurant");
-
-            entity.Property(e => e.Dishid).HasColumnName("dishid");
-            entity.Property(e => e.Calories).HasColumnName("calories");
-            entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.Dishname)
-                .HasMaxLength(255)
-                .HasColumnName("dishname");
-            entity.Property(e => e.Imageurl)
-                .HasMaxLength(255)
-                .HasColumnName("imageurl");
-            entity.Property(e => e.Isavailablefordelivery)
-                .HasDefaultValue(true)
-                .HasColumnName("isavailablefordelivery");
-            entity.Property(e => e.Price)
-                .HasPrecision(10, 2)
-                .HasColumnName("price");
+            entity.HasKey(e => e.Dishid);
+            entity.Property(e => e.Dishid).ValueGeneratedOnAdd();
+            entity.HasOne(d => d.Dishcategory)
+                  .WithMany(c => c.Dishes)
+                  .HasForeignKey(d => d.Dishcategoryid)
+                  .OnDelete(DeleteBehavior.Cascade); // или другое поведение при удалении
         });
+
 
         modelBuilder.Entity<Dishcategory>(entity =>
         {
-            entity.HasKey(e => e.Dishcategoryid).HasName("dishcategories_pkey");
-
             entity.ToTable("dishcategories", "restaurant");
-
-            entity.Property(e => e.Dishcategoryid).HasColumnName("dishcategoryid");
-            entity.Property(e => e.Categoryname)
-                .HasMaxLength(255)
-                .HasColumnName("categoryname");
+            entity.HasKey(e => e.Dishcategoryid);
         });
 
         modelBuilder.Entity<Dishreview>(entity =>

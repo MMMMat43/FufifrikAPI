@@ -1,0 +1,24 @@
+﻿@page
+@model VKR.Pages.MenuModel
+@{
+    ViewData["Title"] = "Меню";
+}
+
+<h1>Меню</h1>
+
+@foreach (var category in Model.Categories)
+{
+    <h2>@category.Categoryname</h2>
+    <ul>
+        @foreach (var dish in category.Dishes)
+        {
+            <li>
+                <strong>@dish.Dishname</strong> - @dish.Price руб. <br />
+                <img src="@dish.Imageurl" alt="@dish.Dishname" width="150" /><br />
+                <em>@dish.Description</em><br />
+                <span>Калорийность: @dish.Calories ккал</span><br />
+                <span>Доступно для доставки: @(dish.Isavailablefordelivery ? "Да" : "Нет")</span>
+            </li>
+        }
+    </ul>
+}

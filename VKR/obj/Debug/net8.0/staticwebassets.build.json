@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Yy9NpI/pqMwLBkkOiIb2kQwvs7NFDZV7zBOUIOa14D4=",
+  "Hash": "cTfyYyhPLQehH1DD1Qcytl0XK65BCLEi/aiYRLqngx0=",
   "Source": "VKR",
   "BasePath": "_content/VKR",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "G:\\Work\\kursovoi\\VKR\\VKR\\wwwroot\\images\\fone.jpg",
+      "SourceId": "VKR",
+      "SourceType": "Discovered",
+      "ContentRoot": "G:\\Work\\kursovoi\\VKR\\VKR\\wwwroot\\",
+      "BasePath": "_content/VKR",
+      "RelativePath": "images/fone.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\fone.jpg"
     },
     {
       "Identity": "G:\\Work\\kursovoi\\VKR\\VKR\\wwwroot\\js\\site.js",
