@@ -1,8 +1,5 @@
 ﻿@page
 @model VKR.Pages.MenuModel
-@{
-    ViewData["Title"] = "Меню";
-}
 
 <h1>Меню</h1>
 
@@ -13,11 +10,11 @@
         @foreach (var dish in category.Dishes)
         {
             <li>
-                <strong>@dish.Dishname</strong> - @dish.Price руб. <br />
-                <img src="@dish.Imageurl" alt="@dish.Dishname" width="150" /><br />
-                <em>@dish.Description</em><br />
-                <span>Калорийность: @dish.Calories ккал</span><br />
-                <span>Доступно для доставки: @(dish.Isavailablefordelivery ? "Да" : "Нет")</span>
+                <img src="@dish.Imageurl" alt="@dish.Dishname" width="100" />
+                <h3>@dish.Dishname</h3>
+                <p>@dish.Description</p>
+                <p>Цена: @dish.Price руб.</p>
+                <p>Калорийность: @dish.Calories ккал</p>
             </li>
         }
     </ul>

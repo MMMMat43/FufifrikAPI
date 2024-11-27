@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Work\\kursovoi\\VKR\\VKR\\VKR.csproj": {}
+    "E:\\VKR\\FufifrikAPI\\VKR\\VKR.csproj": {}
   },
   "projects": {
-    "G:\\Work\\kursovoi\\VKR\\VKR\\VKR.csproj": {
+    "E:\\VKR\\FufifrikAPI\\VKR\\VKR.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Work\\kursovoi\\VKR\\VKR\\VKR.csproj",
+        "projectUniqueName": "E:\\VKR\\FufifrikAPI\\VKR\\VKR.csproj",
         "projectName": "VKR",
-        "projectPath": "G:\\Work\\kursovoi\\VKR\\VKR\\VKR.csproj",
+        "projectPath": "E:\\VKR\\FufifrikAPI\\VKR\\VKR.csproj",
         "packagesPath": "C:\\Users\\motok\\.nuget\\packages\\",
-        "outputPath": "G:\\Work\\kursovoi\\VKR\\VKR\\obj\\",
+        "outputPath": "E:\\VKR\\FufifrikAPI\\VKR\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\motok\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -126,7 +126,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

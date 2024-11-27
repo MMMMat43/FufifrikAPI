@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1unimj6J+yM=",
+  "dgSpecHash": "Vm15/PqEOps=",
   "success": true,
-  "projectFilePath": "G:\\Work\\kursovoi\\VKR\\VKR\\VKR.csproj",
+  "projectFilePath": "E:\\VKR\\FufifrikAPI\\VKR\\VKR.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\motok\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\motok\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",

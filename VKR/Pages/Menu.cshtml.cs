@@ -2,23 +2,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using VKR.Models;
 
-namespace VKR.Pages;
-
-public class MenuModel : PageModel
+namespace VKR.Pages
 {
-    private readonly VkrContext _context;
-
-    public MenuModel(VkrContext context)
+    public class MenuModel : PageModel
     {
-        _context = context;
-    }
+        private readonly VkrContext _context;
 
-    public List<Dishcategory> Categories { get; set; }
+        public MenuModel(VkrContext context)
+        {
+            _context = context;
+        }
 
-    public async Task OnGetAsync()
-    {
-        Categories = await _context.Dishcategories
-            .Include(c => c.Dishes)
-            .ToListAsync();
+        public List<Dishcategory> Categories { get; set; }
+
+        public async Task OnGetAsync()
+        {
+            Categories = await _context.Dishcategories
+                .ToListAsync();
+        }
     }
 }

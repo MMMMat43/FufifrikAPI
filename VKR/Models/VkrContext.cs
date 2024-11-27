@@ -42,11 +42,24 @@ public partial class VkrContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Server=localhost;Database=vkr;Username=postgres;Password=2003;Persist Security Info=True");
+    {
+        optionsBuilder.UseNpgsql("Server=localhost;Database=vkr;Username=postgres;Password=2003;Persist Security Info=True")
+        .LogTo(Console.WriteLine, LogLevel.Information);
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        /*foreach (var entity in modelBuilder.Model.GetEntityTypes())
+        {
+            // Настраиваем имя таблицы
+            entity.SetTableName(entity.GetTableName().ToLowerInvariant());
+
+            // Настраиваем имена колонок
+            foreach (var property in entity.GetProperties())
+            {
+                property.SetColumnName(property.Name.ToLowerInvariant());
+            }
+        }*/
         modelBuilder.HasDefaultSchema("restaurant");
         modelBuilder.Entity<Deliveryinfo>(entity =>
         {
