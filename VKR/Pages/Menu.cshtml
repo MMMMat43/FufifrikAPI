@@ -1,21 +1,104 @@
 ﻿@page
-@model VKR.Pages.MenuModel
+@using YourNamespace.Pages.Menu
+@model MenuModel
+@{
+    ViewData["Title"] = "Меню";
+}
 
-<h1>Меню</h1>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6">Меню</h1>
+        <div>
+            <button class="btn btn-primary" onclick="location.href='/Cart'">
+                Корзина <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count" class="badge bg-danger">0</span>
+            </button>
+        </div>
+    </div>
 
-@foreach (var category in Model.Categories)
-{
-    <h2>@category.Categoryname</h2>
-    <ul>
-        @foreach (var dish in category.Dishes)
-        {
-            <li>
-                <img src="@dish.Imageurl" alt="@dish.Dishname" width="100" />
-                <h3>@dish.Dishname</h3>
-                <p>@dish.Description</p>
-                <p>Цена: @dish.Price руб.</p>
-                <p>Калорийность: @dish.Calories ккал</p>
-            </li>
-        }
-    </ul>
+    <!-- Фильтры -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <select id="category-filter" class="form-select" onchange="applyFilters()">
+                <option value="">Все категории</option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.Dishcategoryid">@category.Categoryname</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <input type="number" id="calories-filter" class="form-control" placeholder="Максимум калорий" oninput="applyFilters()" />
+        </div>
+        <div class="col-md-4">
+            <input type="text" id="search-box" class="form-control" placeholder="Поиск по названию" oninput="applyFilters()" />
+        </div>
+    </div>
+
+    <!-- Список блюд -->
+    <div id="dishes-container" class="row g-3">
+        <!-- Карточки блюд будут добавлены динамически -->
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDishes();
+
+            async function loadDishes() {
+                const response = await fetch('/api/Menu/dishes');
+                const dishes = await response.json();
+                renderDishes(dishes);
+            }
+
+            function renderDishes(dishes) {
+                const container = document.getElementById('dishes-container');
+                container.innerHTML = dishes.map(dish => `
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="${dish.imageurl}" class="card-img-top" alt="${dish.dishname}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${dish.dishname}</h5>
+                                        <p class="card-text">${dish.description}</p>
+                                        <p><strong>${dish.price} руб.</strong></p>
+                                        <p>${dish.calories} ккал</p>
+                                        <button class="btn btn-success" onclick="addToCart(${dish.dishid})">
+                                            В корзину
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+            }
+
+            async function applyFilters() {
+                const category = document.getElementById('category-filter').value;
+                const maxCalories = document.getElementById('calories-filter').value;
+                const search = document.getElementById('search-box').value;
+
+                const response = await fetch(`/api/Menu/dishes?category=${category}&calories=${maxCalories}&search=${search}`);
+                const filteredDishes = await response.json();
+                renderDishes(filteredDishes);
+            }
+
+            function addToCart(dishId) {
+                console.log(`Блюдо с ID ${dishId} добавлено в корзину.`);
+                // Здесь должен быть вызов API для добавления блюда в корзину
+            }
+
+            // Функция для обновления корзины
+            function updateCartCount() {
+                fetch('/api/cart/count')
+                    .then(response => response.json())
+                    .then(data => {
+                        const cartCount = document.getElementById('cart-count');
+                        cartCount.innerText = data.count;
+                    });
+            }
+
+            // Вызов обновления корзины при загрузке страницы
+            updateCartCount();
+        });
+    </script>
 }

@@ -54,7 +54,7 @@ namespace VKR.Pages
             var token = tokenHandler.CreateToken(tokenDescriptor);
             ViewData["Token"] = tokenHandler.WriteToken(token);
 
-            return RedirectToPage("Index");
+            return RedirectToPage("Menu");
         }
     }
 }

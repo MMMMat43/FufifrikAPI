@@ -21,7 +21,9 @@
           "Npgsql": "8.0.5",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.10",
           "Npgsql.EntityFrameworkCore.PostgreSQL.Design": "1.1.0",
-          "Portable.BouncyCastle": "1.9.0"
+          "Portable.BouncyCastle": "1.9.0",
+          "bootstrap": "5.3.3",
+          "font-awesome": "4.7.0"
         },
         "runtime": {
           "VKR.dll": {}
@@ -35,6 +37,8 @@
           }
         }
       },
+      "bootstrap/5.3.3": {},
+      "font-awesome/4.7.0": {},
       "Humanizer/2.14.1": {
         "dependencies": {
           "Humanizer.Core.af": "2.14.1",
@@ -2594,6 +2598,20 @@
       "sha512": "sha512-LyNKpIpr4GraRD9+xlTviyxxbZpF6J4xJf7DvraC1mR8PSN/KonGc4rt8C/fjkD3vaEvgA7BcvsbHFCOjgczyQ==",
       "path": "bcrypt.net-next/4.0.2",
       "hashPath": "bcrypt.net-next.4.0.2.nupkg.sha512"
+    },
+    "bootstrap/5.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iQohLXwneNPDyW4x24mKQ90qGwT5WTtNl3KybL0koTluJPjKYxFCU/NTLHsJiWR2n7VmnwcpAgr8TR42KNmPOg==",
+      "path": "bootstrap/5.3.3",
+      "hashPath": "bootstrap.5.3.3.nupkg.sha512"
+    },
+    "font-awesome/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MCuSOl63d8b9Etn7Jm4FJS1lp8d8W9fGwQ6xu5SqrRu8e/p+FZv2a8W/LguziecV1ZpTqZPamG5nfmZs28SahA==",
+      "path": "font-awesome/4.7.0",
+      "hashPath": "font-awesome.4.7.0.nupkg.sha512"
     },
     "Humanizer/2.14.1": {
       "type": "package",

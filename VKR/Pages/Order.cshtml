@@ -1,0 +1,21 @@
+﻿@page
+@model OrderModel
+@{
+    ViewData["Title"] = "Корзина";
+}
+
+<h1>Ваш заказ</h1>
+<div id="order-items">
+    @foreach (var item in Model.Orderitems)
+    {
+        <div class="order-item">
+            <h3>@item.Dishname</h3>
+            <p>Количество: @item.Quantity</p>
+            <p>Цена: @item.Price</p>
+            <p>Итог: @item.Totalprice</p>
+        </div>
+    }
+</div>
+
+<h2>Итого: @Model.Totalamount</h2>
+<button class="btn btn-success">Перейти к оплате</button>

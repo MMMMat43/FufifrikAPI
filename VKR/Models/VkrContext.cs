@@ -49,7 +49,7 @@ public partial class VkrContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        /*foreach (var entity in modelBuilder.Model.GetEntityTypes())
+        foreach (var entity in modelBuilder.Model.GetEntityTypes())
         {
             // Настраиваем имя таблицы
             entity.SetTableName(entity.GetTableName().ToLowerInvariant());
@@ -59,7 +59,7 @@ public partial class VkrContext : DbContext
             {
                 property.SetColumnName(property.Name.ToLowerInvariant());
             }
-        }*/
+        }
         modelBuilder.HasDefaultSchema("restaurant");
         modelBuilder.Entity<Deliveryinfo>(entity =>
         {

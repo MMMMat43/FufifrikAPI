@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Vm15/PqEOps=",
+  "dgSpecHash": "ATzm6oY3Jqk=",
   "success": true,
   "projectFilePath": "E:\\VKR\\FufifrikAPI\\VKR\\VKR.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\motok\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
+    "C:\\Users\\motok\\.nuget\\packages\\bootstrap\\5.3.3\\bootstrap.5.3.3.nupkg.sha512",
+    "C:\\Users\\motok\\.nuget\\packages\\font-awesome\\4.7.0\\font-awesome.4.7.0.nupkg.sha512",
     "C:\\Users\\motok\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\motok\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\motok\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",
